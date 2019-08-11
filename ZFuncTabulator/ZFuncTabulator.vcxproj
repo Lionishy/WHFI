@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="Runge.h" />
     <ClInclude Include="Tabulator.h" />
+    <ClInclude Include="ZFunc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
