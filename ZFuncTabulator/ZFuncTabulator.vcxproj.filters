@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Table.h">
+    <ClInclude Include="Runge.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="TableIO.h">
+    <ClInclude Include="Tabulator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
