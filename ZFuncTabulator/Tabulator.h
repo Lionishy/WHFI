@@ -5,7 +5,7 @@
 /**
  * Function takes advantage of the Kahan accumulation procedure in tabulating the function with any stepping forward method (Euler, Runge-Kutta etc.)
  */
-template <typename Step, typename InputIterator, typename ArgT, typename ValT>
+template < typename ArgT, typename ValT, typename Step, typename InputIterator>
 void kahan_tabulator(Step step, InputIterator result_begin, InputIterator result_end, ArgT arg0, ArgT f0, ArgT darg, unsigned int loop_size = 1u) {
 	ValT f = f0, arg = arg0;
 	for (; result_begin != result_end; ++result_begin) { //Kahan summation
