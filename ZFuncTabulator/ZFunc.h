@@ -8,12 +8,14 @@
 #include <vector>
 
 template <typename T>
-std::vector<T> ZFunc_tabulator(T darg, unsigned loop_count = 1u) {
+std::vector<T> ZFunc_tabulator(T darg, T max_argument, unsigned loop_count = 1u) {
 	using namespace std;
-	vector<T> table;
+	unsigned step_count = unsigned(max_argument / darg) + 1u;
+	vector<T> table(step_count);
+	table[0] = T(0);
 	kahan_tabulator<T,T>(
 		make_runge4thorder<T,T>([](T arg, T val)->T { return -arg * val - 1.; })
-		, begin(table), end(table)
+		, begin(table)+1, end(table)
 		, T(0), T(0), darg
 		, loop_count
 	);
