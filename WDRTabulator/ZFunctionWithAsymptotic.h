@@ -19,7 +19,7 @@ public:
 	T operator()(T arg) const {
 		T farg = std::abs(arg);
 		unsigned idx = unsigned(farg / known_values->darg);
-		if (idx + 1u < known_values->table.size()) {
+		if ((idx + 1u) < known_values->table.size()) {
 			return T(arg >= 0. ? 1. : -1.) * ((known_values->table[idx + 1u] - known_values->table[idx]) / known_values->darg * (farg - known_values->darg * idx) + known_values->table[idx]);
 		}
 		else {
