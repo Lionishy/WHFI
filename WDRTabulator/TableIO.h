@@ -123,6 +123,7 @@ template <typename ArgT, typename ValT>
 std::istream& read_table_binary(StepArgumentTable<ArgT, ValT> &table, std::istream &ascii_in) {
 	unsigned int size;
 	ascii_in.read(reinterpret_cast<char*>(&size), sizeof(unsigned int));
+	table.table.resize(size);
 	ArgT arg0, darg;
 	ascii_in.read(reinterpret_cast<char*>(&arg0), sizeof(ArgT));
 	ascii_in.read(reinterpret_cast<char*>(&darg), sizeof(ArgT));
