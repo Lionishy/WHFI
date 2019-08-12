@@ -14,16 +14,16 @@
 template <typename T>
 class ZFuncWithAsymptotic final {
 public:
-	ZFuncWithAsymptotic(std::shared_ptr<StepArgumentTable<T> const> known_values): known_values(known_values) { }
+	ZFuncWithAsymptotic(std::shared_ptr<StepArgumentTable<T,T> const> known_values): known_values(known_values) { }
 
 	T operator()(T arg) const {
 		T farg = std::abs(arg);
 		unsigned idx = unsigned(farg / known_values->darg);
 		if (idx + 1u < known_values->table.size()) {
-			return T(arg >= 0. ? 1. : -1.) * ((known_values->table[idx + 1u] - known_values->table[idx]) / known_values->darg * (farg - darg * idx) + known_values->table[idx]);
+			return T(arg >= 0. ? 1. : -1.) * ((known_values->table[idx + 1u] - known_values->table[idx]) / known_values->darg * (farg - known_values->darg * idx) + known_values->table[idx]);
 		}
 		else {
-			T over = T(1.) / ksi, square = over * over;
+			T over = T(1.) / arg, square = over * over;
 			return -over * (T(1.) + square + T(3.) * square * square);
 		}
 	}
