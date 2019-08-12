@@ -125,6 +125,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Runge.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="TableIO.h" />
     <ClInclude Include="Tabulator.h" />
     <ClInclude Include="ZFunc.h" />
   </ItemGroup>
