@@ -12,14 +12,15 @@ void kahan_tabulator(Step step, InputIterator result_begin, InputIterator result
 	volatile ValT c = ValT(0);              //'c' stands for the 'low-bits error'
 	//Algebraically, 'c' should always be zero
 	//Beware overly-aggressive optimizing compilers! Here's why we are making use of the 'volatile' keyword with 'y', 't' and 'c' been declared
+	unsigned full_count = 0;
 	for (; result_begin != result_end; ++result_begin) { //Kahan summation
-		for (size_t loop_counter = 0; loop_counter != loop_size; ++loop_counter) { //In case we want to skip some irrelevant small substeps, 'loop_counter' is present
+		for (size_t loop_counter = 0; loop_counter != loop_size; ++loop_counter, ++full_count) { //In case we want to skip some irrelevant small substeps, 'loop_counter' is present
 			y = step(darg, arg, f) - c;    //So far, so good: 'c' is zero
 			t = f + y;       //Alas, 'sum' is big, 'y' small, so low-order digits of y are lost
 			c = (t - f) - y; //(t - sum) recovers the high-order part of 'y'; subtracting 'y' recovers -(low part of 'y')
 			f = t;  
 			
-			arg += darg;
+			arg = darg*full_count;
 		}
 		//for (size_t loop_counter = 0; loop_counter != loop_size; ++loop_counter) { f += step(darg, arg, f); arg += darg; }
 		*result_begin = f;

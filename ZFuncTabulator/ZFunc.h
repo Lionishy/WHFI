@@ -37,9 +37,11 @@ template <typename T>
 ArgValueTable<T,T> ZFuncArgValueTable(T darg, T max_argument, unsigned loop_count = 1u) {
 	using namespace std;
 	vector<T> values = ZFunc_tabulator<T>(darg, max_argument, loop_count);
-	T arg = T(0), write_darg = darg*loop_count;
+	T write_darg = darg * loop_count; unsigned arg_counter = 0;
 	vector<pair<T,T>> table(values.size());
-	transform(begin(values), end(values), begin(table), [&arg, write_darg](T value) { auto p = make_pair(arg, value); arg += write_darg; return p; });
+	transform(begin(values), end(values), begin(table)
+		, [&arg_counter, write_darg](T value) { return make_pair(write_darg*(arg_counter++), value);}
+	);
 	return { table };
 }
 
