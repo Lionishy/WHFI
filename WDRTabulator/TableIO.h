@@ -93,6 +93,7 @@ std::istream& read_table_ascii(StepArgumentTable<ArgT, ValT> &table, std::istrea
 	unsigned int size;
 	ascii_in >> size;
 	table.table.resize(size);
+
 	for (auto &value : table.table)
 		ascii_in >> value;
 	return ascii_in;
@@ -123,8 +124,9 @@ std::istream& read_table_binary(StepArgumentTable<ArgT, ValT> &table, std::istre
 	unsigned int size;
 	ascii_in.read(reinterpret_cast<char*>(&size), sizeof(unsigned int));
 	table.table.resize(size);
-	ascii_in.read(reinterpret_cast<char*>(std::addressof(table.arg0)), sizeof(ArgT));
-	ascii_in.read(reinterpret_cast<char*>(std::addressof(table.darg)), sizeof(ArgT));
+	ArgT arg0, darg;
+	ascii_in.read(reinterpret_cast<char*>(&arg0), sizeof(ArgT));
+	ascii_in.read(reinterpret_cast<char*>(&darg), sizeof(ArgT));
 	for (auto &value : table.table)
 		ascii_in.read(reinterpret_cast<char*>(&value), sizeof(ValT));
 	return ascii_in;
