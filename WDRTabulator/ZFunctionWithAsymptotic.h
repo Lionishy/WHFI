@@ -14,6 +14,8 @@
 template <typename T>
 class ZFuncWithAsymptotic final {
 public:
+	ZFuncWithAsymptotic(std::shared_ptr<StepArgumentTable<T> const> known_values): known_values(known_values) { }
+
 	T operator()(T arg) const {
 		T farg = std::abs(arg);
 		unsigned idx = unsigned(farg / known_values->darg);
@@ -27,7 +29,7 @@ public:
 	}
 
 private:
-	std::shared_ptr<StepArgumentTable<T> const> known_values;
+	std::shared_ptr<StepArgumentTable<T,T> const> known_values;
 };
 
 #endif /*ZFunctionWithAsymptotic_H*/
