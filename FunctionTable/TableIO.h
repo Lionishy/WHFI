@@ -63,7 +63,7 @@ std::ostream& write_table_binary(StepArgumentTable<ArgT, ValT> const &table, std
 	binary_out.write(reinterpret_cast<char const*>(std::addressof(table.arg0)), sizeof(ArgT));
 	binary_out.write(reinterpret_cast<char const*>(std::addressof(table.darg)), sizeof(ArgT));
 	for (auto const &value : table.table)
-		binary_out.write(reinterpret_cast<char*>(&value), sizeof(ValT));
+		binary_out.write(reinterpret_cast<char const*>(&value), sizeof(ValT));
 	return binary_out << std::flush;
 }
 
