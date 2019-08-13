@@ -21,9 +21,9 @@ public:
 	LambdaR(FunT Z, PhysicalParameters<T> p, T k): Z(Z), p(p), k(k) { }
 
 	T operator()(T omega) const { // 1./(omega^2) is omitted deliberately 
-		return (1. / 1836.) + k * k
-			- p.nc * (omega / (k * p.betta_root_c) - p.bulk_to_term_c) * Z((omega - 1.) / (k * p.betta_root_c) - p.bulk_to_term_c)
-			- p.nh * (omega / (k * p.betta_root_h) - p.bulk_to_term_h) * Z((omega - 1.) / (k * p.betta_root_h) - p.bulk_to_term_h);
+		return T(1. / 1836.) + k * k
+			- p.nc * (omega / (k * p.betta_root_c) - p.bulk_to_term_c) * Z((omega - T(1.)) / (k * p.betta_root_c) - p.bulk_to_term_c)
+			- p.nh * (omega / (k * p.betta_root_h) - p.bulk_to_term_h) * Z((omega - T(1.)) / (k * p.betta_root_h) - p.bulk_to_term_h);
 	}
 
 private:
