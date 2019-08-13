@@ -123,6 +123,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="LambdaR.h" />
+    <ClInclude Include="PhysicalParameters.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="TableIO.h" />
     <ClInclude Include="ZFunctionWithAsymptotic.h" />
