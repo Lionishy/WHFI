@@ -340,3 +340,4 @@ ASALocalRun/
 healthchecksdb
 *.tbl
 /WDRTabulator/fZfunc.txt
+*.txt
