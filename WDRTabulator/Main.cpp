@@ -83,9 +83,9 @@ PhysicalParameters<T> calculate_parameters(T nc, T betta_c, T TcTh_ratio, T bulk
 
 int main() {
 	using namespace std;
-	auto k_omega_table = real_part_wdr("./dZFunc.tbl", calculate_parameters(0.85, 1., 0.1, -3.));
+	auto k_omega_table = real_part_wdr("./fZFunc.tbl", calculate_parameters(0.85f, 1.f/0.85f, 0.1f, -1.f));
 	{
-		ofstream wdr("./dwdr-3.txt"); wdr << setprecision(8) << fixed;
+		ofstream wdr("./fwdr-7.txt"); wdr << setprecision(8) << fixed;
 		write_table_ascii(k_omega_table, wdr);
 	}
 
