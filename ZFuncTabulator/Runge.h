@@ -17,7 +17,7 @@ public:
 		ValT k2 = F(arg + step / ValT(2.), value + k1 * step / ValT(2.));
 		ValT k3 = F(arg + step / ValT(2.), value + k2 * step / ValT(2.));
 		ValT k4 = F(arg + step, value + k2 * step); 
-		return step / ValT(6.) * (k1 + k2 + k3 + k4);
+		return step / ValT(6.) * (k1 + ValT(2.)*k2 + ValT(2.)*k3 + k4);
 	}
 
 private:
