@@ -132,8 +132,16 @@ int main() {
 			write_table_ascii(k_omega_table, wdr);
 		}
 		{
+			ofstream wdr("./fwdr-15.tbl", ios::out | ios::binary);
+			write_table_binary(k_omega_table, wdr);
+		}
+		{
 			ofstream wdr_derivative("./fwdr_derive-15.txt"); wdr_derivative << setprecision(8) << fixed;
 			write_table_ascii(k_derivative_table, wdr_derivative);
+		}
+		{
+			ofstream wdr_derivative("./fwdr_derive-15.tbl",ios::out|ios::binary);
+			write_table_binary(k_derivative_table, wdr_derivative);
 		}
 	}
 	catch (exception const& ex) {
