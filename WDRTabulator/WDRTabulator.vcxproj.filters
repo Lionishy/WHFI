@@ -33,6 +33,15 @@
     <ClInclude Include="LambdaRRootDerivative.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="VDFTabulator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AdvancedTable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AdvancedTableIO.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

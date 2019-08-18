@@ -1,8 +1,11 @@
 #include "ZFunctionWithAsymptotic.h"
 #include "Table.h"
 #include "TableIO.h"
+#include "AdvancedTable.h"
+#include "AdvancedTableIO.h"
 #include "LambdaR.h"
 #include "LambdaRRootDerivative.h"
+#include "VDFTabulator.h"
 
 #include <fstream>
 #include <iostream>
@@ -121,7 +124,7 @@ PhysicalParameters<T> calculate_parameters(T nc, T betta_c, T TcTh_ratio, T bulk
 
 int main() {
 	using namespace std;
-	try {
+	/*try {
 		auto p = calculate_parameters(0.85f, 1.f / 0.85f, 0.1f, -15.f);
 		auto Z = make_ZFunc_from_file<float>("./fZFunc.tbl");
 
@@ -146,9 +149,15 @@ int main() {
 	}
 	catch (exception const& ex) {
 		cout << ex.what() << endl;
+	}*/
+
+	auto p = calculate_parameters(0.85f, 1.f / 0.85f, 0.1f, -7.f);
+	auto vdf = make_initialvdf(p, 0.1f, { 200, 0.f,1.e-2f}, { 1000, -5.f, 1.e-2f});
+	auto table = vdf.as_multiscalar();
+	{
+		ofstream vdf("./fVDF.txt"); vdf << setprecision(8) << fixed;
+		write_table_ascii(table, vdf);
 	}
-
-
 
 	return 0;
 }

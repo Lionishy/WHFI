@@ -124,11 +124,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AdvancedTable.h" />
+    <ClInclude Include="AdvancedTableIO.h" />
     <ClInclude Include="LambdaR.h" />
     <ClInclude Include="LambdaRRootDerivative.h" />
     <ClInclude Include="PhysicalParameters.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="TableIO.h" />
+    <ClInclude Include="VDFTabulator.h" />
     <ClInclude Include="ZFunctionWithAsymptotic.h" />
   </ItemGroup>
   <ItemGroup>
