@@ -126,6 +126,9 @@
     <ClInclude Include="AdvancedTable.h" />
     <ClInclude Include="AdvancedTableIO.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Tests.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

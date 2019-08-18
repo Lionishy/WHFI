@@ -145,10 +145,10 @@ std::istream& read_table_ascii(MultiscalarTable<ArgT, ValT> &grid_table, std::is
 	//at first we have to read the total number of arguments and values
 	//and the number of arguments and values in a one (arg,val) pair
 	{
-		unsigned argument_size, value_size;
-		ascii_is >> argument_size >> grid_table.arg_size >> values_size >> grid_table.val_size;
-		grid_table.arguments.resize(argument_size); //we have to resize table vectors
-		grid_table.values.resize(value_size);
+		unsigned arguments_size, values_size;
+		ascii_is >> arguments_size >> grid_table.arg_size >> values_size >> grid_table.val_size;
+		grid_table.arguments.resize(arguments_size); //we have to resize table vectors
+		grid_table.values.resize(values_size);
 	}
 
 	//next we need to read all arguments and values
