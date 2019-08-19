@@ -35,8 +35,8 @@ public:
 
 private:
 	T vdf(T vperp, T vparall) const {
-		T coeff_c = std::exp(-vperp * vperp * T(0.5)), coeff_h = std::exp(-vperp * vperp * T(0.5) );
-		return p.nc * coeff_c * std::exp(-T(0.5) * (vparall - p.bulk_to_term_c) * (vparall - p.bulk_to_term_c)) + p.nh * coeff_h * std::exp(-T(0.5) * ( vparall - p.bulk_to_term_h) * (vparall - p.bulk_to_term_h));
+		T coeff_c = std::exp(-vperp * vperp * T(0.5)), coeff_h = std::exp(-vperp * vperp * T(0.5)*TcTh_ratio );
+		return p.nc * coeff_c * std::exp(-T(0.5) * (vparall - p.bulk_to_term_c) * (vparall - p.bulk_to_term_c)) + p.nh * coeff_h * std::exp(-T(0.5) * (std::sqrt(TcTh_ratio)*vparall - p.bulk_to_term_h) * (std::sqrt(TcTh_ratio) * vparall - p.bulk_to_term_h));
 	}
 
 	PhysicalParameters<T> p;

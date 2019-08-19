@@ -15,6 +15,7 @@
 #include <iterator>
 #include <future>
 #include <iomanip>
+#include <tuple>
 
 /**
  * Function to generate a wave number gring, a number of k values
@@ -73,7 +74,7 @@ auto make_ZFunc_from_file(std::string ZFuncTableFilename) {
  * Function to counstruct a table representing the real part of the whistler dispersion relation 
  */
 template <typename T, typename FunT>
-ArgValueTable<T, T> real_part_wdr(FunT Z, PhysicalParameters<T> params, std::vector<T> k_grid = generate_grid<T>(T(-0.7),T(0.7),T(1.e-3))) {
+MultiscalarTable<T, T> real_part_wdr(FunT Z, PhysicalParameters<T> params, std::vector<T> k_grid = generate_grid<T>(T(-0.7),T(0.7),T(1.e-3))) {
 	using namespace std;
 	vector<pair<T,future<T>>> omegas;
 	auto kernel = [Z, params](T k) {
@@ -82,26 +83,15 @@ ArgValueTable<T, T> real_part_wdr(FunT Z, PhysicalParameters<T> params, std::vec
 	for (auto k : k_grid)
 		omegas.push_back({ k, async(launch::async,kernel,k) });
 
-	ArgValueTable<T, T> result_table;
-	for (auto& f : omegas)
-		result_table.table.push_back({ f.first,f.second.get() });
+	MultiscalarTable<T, T> result_table; result_table.arg_size = 1u; result_table.val_size = 3u;
+	for (auto &k_omega : omegas) {
+		result_table.arguments.push_back(k_omega.first);
+		auto omega = k_omega.second.get();
+		result_table.values.push_back(omega);
+		result_table.values.push_back(make_lambdar_rootderivative(Z, params, k_omega.first)(omega));
+		result_table.values.push_back((omega - T(1.)) / (k_omega.first * params.betta_root_c));
+	}
 	return result_table;
-}
-
-/**
- * Function to transform known values of the (k,omega) pairs to the (k,LambdaR derivative) pairs table
- */
-template <typename T, typename FunT>
-ArgValueTable<T, T> omega_to_derivative_transform(FunT Z, ArgValueTable<T, T> const &k_omega_table, PhysicalParameters<T> p) {
-	using namespace std;
-	ArgValueTable<T, T> k_derivative;
-	k_derivative.table.resize(k_omega_table.table.size());
-	transform(begin(k_omega_table.table), end(k_omega_table.table), begin(k_derivative.table), 
-		[Z,p](auto& k_omega) {
-			return pair<T,T>( k_omega.first, make_lambdar_rootderivative(Z,p,k_omega.first)(k_omega.second) );
-		}
-	);
-	return k_derivative;
 }
 
 /**
@@ -124,40 +114,27 @@ PhysicalParameters<T> calculate_parameters(T nc, T betta_c, T TcTh_ratio, T bulk
 
 int main() {
 	using namespace std;
-	/*try {
-		auto p = calculate_parameters(0.85f, 1.f / 0.85f, 0.1f, -15.f);
+	try {
+		auto p = calculate_parameters(0.85f, 1.f / 0.85f, 0.1f, -7.f);
 		auto Z = make_ZFunc_from_file<float>("./fZFunc.tbl");
 
-		auto k_omega_table = real_part_wdr(Z, p);
-		auto k_derivative_table = omega_to_derivative_transform(Z, k_omega_table, p);
+		auto dr_table = real_part_wdr(Z, p);
 		{
-			ofstream wdr("./fwdr-15.txt"); wdr << setprecision(8) << fixed;
-			write_table_ascii(k_omega_table, wdr);
-		}
-		{
-			ofstream wdr("./fwdr-15.tbl", ios::out | ios::binary);
-			write_table_binary(k_omega_table, wdr);
-		}
-		{
-			ofstream wdr_derivative("./fwdr_derive-15.txt"); wdr_derivative << setprecision(8) << fixed;
-			write_table_ascii(k_derivative_table, wdr_derivative);
-		}
-		{
-			ofstream wdr_derivative("./fwdr_derive-15.tbl",ios::out|ios::binary);
-			write_table_binary(k_derivative_table, wdr_derivative);
+			ofstream wdr("./fwdr-7.txt"); wdr << setprecision(8) << fixed;
+			write_table_ascii(dr_table, wdr);
 		}
 	}
 	catch (exception const& ex) {
 		cout << ex.what() << endl;
-	}*/
+	}
 
-	auto p = calculate_parameters(0.85f, 1.f / 0.85f, 0.1f, -7.f);
+	/*auto p = calculate_parameters(0.85f, 1.f / 0.85f, 0.1f, -7.f);
 	auto vdf = make_initialvdf(p, 0.1f, { 200, 0.f,1.e-2f}, { 1000, -5.f, 1.e-2f});
 	auto table = vdf.as_multiscalar();
 	{
-		ofstream vdf("./fVDF.txt"); vdf << setprecision(8) << fixed;
+		ofstream vdf("./fVDF-7.txt"); vdf << setprecision(8) << fixed;
 		write_table_ascii(table, vdf);
-	}
+	}*/
 
 	return 0;
 }

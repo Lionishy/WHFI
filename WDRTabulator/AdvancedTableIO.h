@@ -152,12 +152,15 @@ std::istream& read_table_ascii(MultiscalarTable<ArgT, ValT> &grid_table, std::is
 		grid_table.arguments.resize(arguments_size); //we have to resize table vectors
 		grid_table.values.resize(values_size);
 	}
-
 	//next we need to read all arguments and values
-	for (auto &arg : grid_table.arguments)
-		ascii_is >> arg;
-	for (auto &val : grid_table.values)
-		ascii_is >> val;
+	auto argument_iterator = grid_table.arguments.begin(), argument_end = grid_table.arguments.end();
+	auto value_iterator = grid_table.values.begin(), value_end = grid_table.values.end();
+	while (argument_iterator != argument_end) {
+		for (unsigned arg_vec_count = 0u; arg_vec_count != grid_table.arg_size; ++arg_vec_count)
+			ascii_is >> *argument_iterator++;
+		for (unsigned val_vec_count = 0u; val_vec_count != grid_table.val_size; ++val_vec_count)
+			ascii_is >> *value_iterator++;
+	}
 	return ascii_is;
 }
 
