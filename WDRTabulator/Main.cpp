@@ -120,21 +120,26 @@ int main() {
 
 		auto dr_table = real_part_wdr(Z, p);
 		{
-			ofstream wdr("./fwdr-7.txt"); wdr << setprecision(8) << fixed;
+			ofstream wdr; wdr.exceptions(ios::badbit | ios::failbit);
+			wdr.open("./fwdr-7.txt");
+			
+			wdr << setprecision(8) << fixed;
 			write_table_ascii(dr_table, wdr);
+		}
+
+		auto vdf = make_initialvdf(p, 0.1f, { 200, 0.f,1.e-2f }, { 2000, -10.f, 1.e-2f });
+		auto table = vdf.as_multiscalar();
+		{
+			ofstream vdf; vdf.exceptions(ios::badbit | ios::failbit);
+			vdf.open("./fVDF-7.txt");
+			
+			vdf << setprecision(8) << fixed;
+			write_table_ascii(table, vdf);
 		}
 	}
 	catch (exception const& ex) {
 		cout << ex.what() << endl;
 	}
-
-	/*auto p = calculate_parameters(0.85f, 1.f / 0.85f, 0.1f, -7.f);
-	auto vdf = make_initialvdf(p, 0.1f, { 200, 0.f,1.e-2f}, { 1000, -5.f, 1.e-2f});
-	auto table = vdf.as_multiscalar();
-	{
-		ofstream vdf("./fVDF-7.txt"); vdf << setprecision(8) << fixed;
-		write_table_ascii(table, vdf);
-	}*/
 
 	return 0;
 }
