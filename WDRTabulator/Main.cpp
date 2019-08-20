@@ -85,8 +85,9 @@ MultiscalarTable<T, T> real_part_wdr(FunT Z, PhysicalParameters<T> params, std::
 
 	MultiscalarTable<T, T> result_table; result_table.arg_size = 1u; result_table.val_size = 3u;
 	for (auto &k_omega : omegas) {
-		result_table.arguments.push_back(k_omega.first);
 		auto omega = k_omega.second.get();
+		if (std::isnan(omega)) { continue; }
+		result_table.arguments.push_back(k_omega.first);
 		result_table.values.push_back(omega);
 		result_table.values.push_back(make_lambdar_rootderivative(Z, params, k_omega.first)(omega));
 		result_table.values.push_back((omega - T(1.)) / (k_omega.first * params.betta_root_c));
@@ -115,23 +116,23 @@ PhysicalParameters<T> calculate_parameters(T nc, T betta_c, T TcTh_ratio, T bulk
 int main() {
 	using namespace std;
 	try {
-		auto p = calculate_parameters(0.85f, 1.f / 0.85f, 0.1f, -7.f);
+		auto p = calculate_parameters(0.85f, 1.f / 0.85f, 0.1f, -15.f);
 		auto Z = make_ZFunc_from_file<float>("./fZFunc.tbl");
 
 		auto dr_table = real_part_wdr(Z, p);
 		{
 			ofstream wdr; wdr.exceptions(ios::badbit | ios::failbit);
-			wdr.open("./fwdr-7.txt");
+			wdr.open("./fwdr-15.txt");
 			
 			wdr << setprecision(8) << fixed;
 			write_table_ascii(dr_table, wdr);
 		}
 
-		auto vdf = make_initialvdf(p, 0.1f, { 200, 0.f,1.e-2f }, { 2000, -10.f, 1.e-2f });
+		auto vdf = make_initialvdf(p, 0.1f, { 1000, 0.f,1.e-2f }, { 2000, -10.f, 1.e-2f });
 		auto table = vdf.as_multiscalar();
 		{
 			ofstream vdf; vdf.exceptions(ios::badbit | ios::failbit);
-			vdf.open("./fVDF-7.txt");
+			vdf.open("./fVDF-15.txt");
 			
 			vdf << setprecision(8) << fixed;
 			write_table_ascii(table, vdf);
