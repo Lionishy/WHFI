@@ -13,21 +13,93 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы заголовков\Table">
+      <UniqueIdentifier>{c4c66153-4e9e-49c5-9083-f9745b52ab11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\WDR">
+      <UniqueIdentifier>{17bd1e65-ac19-46e9-ae4d-744100f07054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Math">
+      <UniqueIdentifier>{362c0355-1795-4b43-903b-e0e277761bfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\ZFunc">
+      <UniqueIdentifier>{62a4c48b-ebb2-407c-bbdd-5a67ff3a3594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\VDF">
+      <UniqueIdentifier>{cb957307-3cb4-471a-9ca7-487f6ba832c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AdvancedTable.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Grid.h">
+      <Filter>Файлы заголовков\Table</Filter>
     </ClInclude>
-    <ClInclude Include="AdvancedTableIO.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="GridTable.h">
+      <Filter>Файлы заголовков\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>Файлы заголовков\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="TableIO.h">
+      <Filter>Файлы заголовков\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformGrid.h">
+      <Filter>Файлы заголовков\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformGridTable.h">
+      <Filter>Файлы заголовков\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="LambdaR.h">
+      <Filter>Файлы заголовков\WDR</Filter>
+    </ClInclude>
+    <ClInclude Include="LambdaRRootDerivative.h">
+      <Filter>Файлы заголовков\WDR</Filter>
+    </ClInclude>
+    <ClInclude Include="WDRExport.h">
+      <Filter>Файлы заголовков\WDR</Filter>
+    </ClInclude>
+    <ClInclude Include="WDRImport.h">
+      <Filter>Файлы заголовков\WDR</Filter>
+    </ClInclude>
+    <ClInclude Include="KahanTabulator.h">
+      <Filter>Файлы заголовков\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelper.h">
+      <Filter>Файлы заголовков\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Runge.h">
+      <Filter>Файлы заголовков\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ZFunc.h">
+      <Filter>Файлы заголовков\ZFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="ZFunctionWithAsymptotic.h">
+      <Filter>Файлы заголовков\ZFunc</Filter>
+    </ClInclude>
+    <ClInclude Include="AnalyticalMoments.h">
+      <Filter>Файлы заголовков\VDF</Filter>
+    </ClInclude>
+    <ClInclude Include="KahanVDFMoments.h">
+      <Filter>Файлы заголовков\VDF</Filter>
+    </ClInclude>
+    <ClInclude Include="VDF.h">
+      <Filter>Файлы заголовков\VDF</Filter>
+    </ClInclude>
+    <ClInclude Include="VDFExport.h">
+      <Filter>Файлы заголовков\VDF</Filter>
+    </ClInclude>
+    <ClInclude Include="VDFImport.h">
+      <Filter>Файлы заголовков\VDF</Filter>
+    </ClInclude>
+    <ClInclude Include="VDFTabulator.h">
+      <Filter>Файлы заголовков\VDF</Filter>
     </ClInclude>
     <ClInclude Include="PhysicalParameters.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
